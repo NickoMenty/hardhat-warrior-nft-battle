@@ -1,0 +1,233 @@
+{
+    "0": {
+        "name": "WarriorSeven",
+        "description": "Low",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 11
+            },
+            {
+                "trait_type": "damage",
+                "value": 90
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 90
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "1": {
+        "name": "WarriorSix",
+        "description": "Tank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 91
+            },
+            {
+                "trait_type": "damage",
+                "value": 11
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 91
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "2": {
+        "name": "WarriorEight",
+        "description": "DamageTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 92
+            },
+            {
+                "trait_type": "damage",
+                "value": 92
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 11
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+            
+        ]
+    },
+    "3": {
+        "name": "WarriorTwo",
+        "description": "DamageTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 12
+            },
+            {
+                "trait_type": "damage",
+                "value": 93
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 93
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "4": {
+        "name": "WarriorTen",
+        "description": "DamageTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 94
+            },
+            {
+                "trait_type": "damage",
+                "value": 12
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 94
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "5": {
+        "name": "WarriorFive",
+        "description": "DamageTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 94
+            },
+            {
+                "trait_type": "damage",
+                "value": 94
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 12
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "6": {
+        "name": "WarriorThree",
+        "description": "DamageTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 13
+            },
+            {
+                "trait_type": "damage",
+                "value": 95
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 95
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "7": {
+        "name": "WarriorNine",
+        "description": "DamageTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 96
+            },
+            {
+                "trait_type": "damage",
+                "value": 13
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 96
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "8": {
+        "name": "WarriorFour",
+        "description": "intelleganceTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 97
+            },
+            {
+                "trait_type": "damage",
+                "value": 97
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 13
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    },
+    "9": {
+        "name": "WarriorOne",
+        "description": "speedTank",
+        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "attributes": [
+            {
+                "trait_type": "speed",
+                "value": 14 
+            },
+            {
+                "trait_type": "damage",
+                "value": 98 
+            },
+            {
+                "trait_type": "intellegance",
+                "value": 98 
+            },
+            {
+                "trait_type": "hp",
+                "value": 6
+            }
+        ]
+    }
+}
