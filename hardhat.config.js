@@ -6,7 +6,7 @@ require("dotenv").config()
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-
+const BLAST_RPC_URL = process.env.BLAST_RPC_URL
 const MAINNET_RPC_URL =
     process.env.MAINNET_RPC_URL ||
     process.env.ALCHEMY_MAINNET_RPC_URL 
@@ -60,13 +60,38 @@ module.exports = {
             saveDeployments: true,
             chainId: 137,
         },
+        blastsepolia: {
+            url: BLAST_RPC_URL || "",
+            accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+            chainId: 168587773,
+            saveDeployments: true,
+        },
     },
     etherscan: {
         // npx hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
         apiKey: {
             sepolia: ETHERSCAN_API_KEY,
             polygon: POLYGONSCAN_API_KEY,
+            blastsepolia: "https://api.routescan.io/v2/network/testnet/evm/168587773/etherscan",
         },
+        customChains: [
+            {
+                network: "sepolia",
+                chainId: 11155111,
+                urls: {
+                    apiURL: "https://api-sepolia.etherscan.io/api",
+                    browserURL: "https://sepolia.etherscan.io/",
+                },
+            },
+            {
+                network: "blastsepolia",
+                chainId: 168587773,
+                urls: {
+                  apiURL: "https://api.routescan.io/v2/network/testnet/evm/168587773/etherscan",
+                  browserURL: "https://testnet.blastscan.io"
+                }
+            }
+        ],
     },
     gasReporter: {
         enabled: REPORT_GAS,

@@ -19,6 +19,9 @@ const networkConfig = {
         raffleEntranceFee: "100000000000000000", // 0.1 ETH
         callbackGasLimit: "500000", // 500,000 gas
     },
+    168587773: {
+        name: "blastsepolia",
+    },
     1: {
         name: "mainnet",
         keepersUpdateInterval: "30",
