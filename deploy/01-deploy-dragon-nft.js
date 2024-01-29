@@ -24,7 +24,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     }
     // await storeTokenUriMetadata(metadata)
     const args = [MINT_FEE, tokenUris, MAX_SUPPLY]
-    const WarriorNft = await deploy("DragonNft", {
+    const DragonNft = await deploy("DragonNft", {
         from: deployer,
         args: args,
         log: true,
@@ -34,7 +34,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // Verify the deployment
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        await verify(WarriorNft.address, args)
+        await verify(DragonNft.address, args)
     }
     log("----------------------------------------------------")
 

@@ -4,13 +4,13 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-error WarriorNft__AlreadyInitialized();
-error WarriorNft__NeedMoreETHSent();
-error WarriorNft__RangeOutOfBounds();
-error WarriorNft__TransferFailed();
-error WarriorNft__MaxSupplyReached();
-error WarriorNft__InvalidAirdrop();
-error WarriorNft__SoldOut();
+error DragonNft__AlreadyInitialized();
+error DragonNft__NeedMoreETHSent();
+error DragonNft__RangeOutOfBounds();
+error DragonNft__TransferFailed();
+error DragonNft__MaxSupplyReached();
+error DragonNft__InvalidAirdrop();
+error DragonNft__SoldOut();
 
 
 enum YieldMode {
@@ -59,7 +59,7 @@ interface IBlast{
     function readGasParams(address contractAddress) external view returns (uint256 etherSeconds, uint256 etherBalance, uint256 lastUpdated, GasMode);
 }
 
-contract WarriorNft is ERC721URIStorage, Ownable {
+contract DragonNft is ERC721URIStorage, Ownable {
 
     // NFT Variables
     uint256 private immutable i_mintFee;
@@ -92,10 +92,10 @@ contract WarriorNft is ERC721URIStorage, Ownable {
 
     function mintNft() public payable {
         if (s_tokenCounter >= i_maxSupply) {
-            revert WarriorNft__MaxSupplyReached(); // Check for max supply
+            revert DragonNft__MaxSupplyReached(); // Check for max supply
         }
         if (msg.value < i_mintFee) {
-            revert WarriorNft__NeedMoreETHSent();
+            revert DragonNft__NeedMoreETHSent();
         }
         address genOwner = msg.sender;
         uint256 newItemId = s_tokenCounter;
@@ -109,7 +109,7 @@ contract WarriorNft is ERC721URIStorage, Ownable {
 
     function _initializeContract(string[10] memory genTokenUris) private {
         if (s_initialized) {
-            revert WarriorNft__AlreadyInitialized();
+            revert DragonNft__AlreadyInitialized();
         }
         s_genTokenUris = genTokenUris;
         s_initialized = true;
@@ -119,7 +119,7 @@ contract WarriorNft is ERC721URIStorage, Ownable {
         uint256 amount = address(this).balance;
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         if (!success) {
-            revert WarriorNft__TransferFailed();
+            revert DragonNft__TransferFailed();
         }
     }
 
@@ -129,13 +129,13 @@ contract WarriorNft is ERC721URIStorage, Ownable {
     ) external onlyOwner {
         uint256 numRecipients = recipients.length; 
         uint256 totalAirdropped; 
-        if (numRecipients != quantity.length) revert WarriorNft__InvalidAirdrop(); 
+        if (numRecipients != quantity.length) revert DragonNft__InvalidAirdrop(); 
 
         for (uint256 i = 0; i < numRecipients; ) { 
             for (uint256 k = 0; k < quantity[i]; ) { 
                 uint64 updatedAmountMinted = s_tokenCounter + 1;
                 if (updatedAmountMinted > i_maxSupply) {
-                    revert WarriorNft__SoldOut();
+                    revert DragonNft__SoldOut();
                 }
 
                 // airdrops are not subject to the per-wallet mint limits,
