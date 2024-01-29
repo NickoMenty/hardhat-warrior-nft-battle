@@ -80,7 +80,7 @@ contract DragonNft is ERC721URIStorage, Ownable {
         uint256 mintFee,
         string[10] memory genTokenUris,
         uint256 maxSupply
-    ) ERC721 ("Warrior", "WAIO") {
+    ) ERC721 ("Bragon", "BRAG") {
         _initializeContract(genTokenUris);
         i_mintFee = mintFee;
         s_tokenCounter = 0;
