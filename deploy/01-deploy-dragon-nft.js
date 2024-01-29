@@ -7,7 +7,7 @@ const path = require("path")
 
 const MINT_FEE = ethers.parseEther("0.01")
 const MAX_SUPPLY = 10
-const metadataLocation = "./dragonsNfts.json"
+const metadataLocation = "./egg.json"
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
     
@@ -23,7 +23,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         tokenUris = await handleTokenUris()
     }
     // await storeTokenUriMetadata(metadata)
-    const args = [MINT_FEE, tokenUris, MAX_SUPPLY]
+    const args = [MINT_FEE, MAX_SUPPLY]
     const DragonNft = await deploy("DragonNft", {
         from: deployer,
         args: args,
@@ -39,15 +39,13 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log("----------------------------------------------------")
 
     async function handleTokenUris() {
-        // Check out https://github.com/PatrickAlphaC/nft-mix for a pythonic version of uploading
-        // to the raw IPFS-daemon from https://docs.ipfs.io/how-to/command-line-quick-start/
-        // You could also look at pinata https://www.pinata.cloud/
         const metadataJson = JSON.parse(fs.readFileSync(metadataLocation, "utf8"))
         tokenUris = []
-        let i = 0;  // For loop initializer
-        while (i < 10)  // For loop condition (and the actual loop)
+        let i = 1;  // For loop initializer
+        while (i < 2)  // For loop condition (and the actual loop)
         {   
             const tokenUri = metadataJson[i]
+            console.log(tokenUri)
             console.log(`Uploading ${tokenUri.name}...`)
             const metadataUploadResponse = await storeTokenUriMetadata(tokenUri)
             tokenUris.push(`ipfs://${metadataUploadResponse.IpfsHash}`)
@@ -56,11 +54,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         console.log("Token URIs uploaded! They are:")
         console.log(tokenUris)
         return tokenUris
-    }
+        }
         
 }
-
-
-
 
 module.exports.tags = ["all", "DragonNft","UsingJSON"]
