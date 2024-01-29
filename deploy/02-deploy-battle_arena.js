@@ -10,7 +10,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         : VERIFICATION_BLOCK_CONFIRMATIONS
 
     log("----------------------------------------------------")
-    const WarriorNft = await deployments.get("WarriorNft")
+    const WarriorNft = await deployments.get("DragonNft")
     const WarriorNftAddress = WarriorNft.address
     const arguments = [WarriorNftAddress]
     const nftBattleArena = await deploy("NFTBattleArena", {

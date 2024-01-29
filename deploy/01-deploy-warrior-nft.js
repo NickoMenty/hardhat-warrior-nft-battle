@@ -7,7 +7,7 @@ const path = require("path")
 
 const MINT_FEE = ethers.parseEther("0.01")
 const MAX_SUPPLY = 10
-const metadataLocation = "./warriorsNfts.json"
+const metadataLocation = "./dragonsNfts.json"
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
     
@@ -24,7 +24,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     }
     // await storeTokenUriMetadata(metadata)
     const args = [MINT_FEE, tokenUris, MAX_SUPPLY]
-    const WarriorNft = await deploy("WarriorNft", {
+    const WarriorNft = await deploy("DragonNft", {
         from: deployer,
         args: args,
         log: true,
@@ -63,4 +63,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
 
 
-module.exports.tags = ["all", "WarriorNft","UsingJSON"]
+module.exports.tags = ["all", "DragonNft","UsingJSON"]

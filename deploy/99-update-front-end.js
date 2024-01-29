@@ -28,15 +28,15 @@ async function updateAbi() {
         NFTBattleArenaInstance.interface.formatJson()
     )
 
-    const _WarriorNft = await deployments.get("WarriorNft")
-    // const WarriorNftAddress = WarriorNft.address
-    const WarriorNftInstance = await ethers.getContractAt(
-        "WarriorNft",
-        _WarriorNft.address
+    const _DragonNft = await deployments.get("DragonNft")
+    // const DragonNftAddress = DragonNft.address
+    const DragonNftInstance = await ethers.getContractAt(
+        "DragonNft",
+        _DragonNft.address
     )
     fs.writeFileSync(
-        `${frontEndAbiLocation}WarriorNft.json`,
-        WarriorNftInstance.interface.formatJson()
+        `${frontEndAbiLocation}DragonNft.json`,
+        DragonNftInstance.interface.formatJson()
     )
 }
 

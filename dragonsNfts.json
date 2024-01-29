@@ -1,6 +1,6 @@
 {
     "0": {
-        "name": "WarriorSeven",
+        "name": "DragonSeven",
         "description": "Low",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -23,7 +23,7 @@
         ]
     },
     "1": {
-        "name": "WarriorSix",
+        "name": "DragonSix",
         "description": "Tank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -46,7 +46,7 @@
         ]
     },
     "2": {
-        "name": "WarriorEight",
+        "name": "DragonEight",
         "description": "DamageTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -70,7 +70,7 @@
         ]
     },
     "3": {
-        "name": "WarriorTwo",
+        "name": "DragonTwo",
         "description": "DamageTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -93,7 +93,7 @@
         ]
     },
     "4": {
-        "name": "WarriorTen",
+        "name": "DragonTen",
         "description": "DamageTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -116,7 +116,7 @@
         ]
     },
     "5": {
-        "name": "WarriorFive",
+        "name": "DragonFive",
         "description": "DamageTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -139,7 +139,7 @@
         ]
     },
     "6": {
-        "name": "WarriorThree",
+        "name": "DragonThree",
         "description": "DamageTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -162,7 +162,7 @@
         ]
     },
     "7": {
-        "name": "WarriorNine",
+        "name": "DragonNine",
         "description": "DamageTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -185,7 +185,7 @@
         ]
     },
     "8": {
-        "name": "WarriorFour",
+        "name": "DragonFour",
         "description": "intelleganceTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
@@ -208,7 +208,7 @@
         ]
     },
     "9": {
-        "name": "WarriorOne",
+        "name": "DragonOne",
         "description": "speedTank",
         "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
