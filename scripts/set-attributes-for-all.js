@@ -3,7 +3,7 @@ const { moveBlocks } = require("../utils/move-blocks")
 const fs = require("fs")
 const path = require("path")
 
-const metadataLocation = "./cupheadAttributes.json"
+const metadataLocation = "./dragonNfts.json"
 
 let NFTBattleArena, NFTBattleArenaAddress, NFTBattleArenaInstance
 
@@ -19,8 +19,8 @@ async function setattributesforall() {
     )
     console.log("setting attributes")
     const metadataJson = JSON.parse(fs.readFileSync(metadataLocation, "utf8"))
-    let i = 9;  // For loop initializer
-    while (i < 101)  // For loop condition (and the actual loop)
+    let i = 0;  // For loop initializer
+    while (i < 10)  // For loop condition (and the actual loop)
     {   
         let tokenUri = metadataJson[i]
         let tokenId = i
