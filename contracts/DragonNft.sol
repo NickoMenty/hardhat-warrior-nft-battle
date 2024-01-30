@@ -109,6 +109,14 @@ contract DragonNft is ERC721URIStorage, Ownable {
         emit NftMinted(newItemId, genOwner);   
     }
 
+    function _initializeContract(string[10] memory genTokenUris) public onlyOwner{
+        if (s_initialized) {
+            revert DragonNft__AlreadyInitialized();
+        }
+        s_genTokenUris = genTokenUris;
+        s_initialized = true;
+    }
+
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
     if (_exists(tokenId) == false){
         revert DragonNft__RangeOutOfBounds();
@@ -150,7 +158,6 @@ contract DragonNft is ERC721URIStorage, Ownable {
 
                 uint256 newItemId = s_tokenCounter;
                 _safeMint(recipients[i], newItemId);
-                _setTokenURI(newItemId, s_genTokenUris[s_tokenCounter]);
 
                 unchecked {
                     ++k;
