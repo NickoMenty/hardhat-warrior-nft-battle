@@ -165,6 +165,14 @@ contract NFTBattleArena is Ownable{
         nftAttribute.hp = _attributes.hp;
     }
 
+    function random() internal view returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(
+        tx.origin,
+        blockhash(block.number - 1),
+        block.timestamp
+        )));
+    }
+
     function listNFTForBattle(uint256 tokenId) public isOwner(tokenId, msg.sender){
         // List an NFT for battle
         IERC721 nft = IERC721(i_nftCollection);
@@ -191,12 +199,13 @@ contract NFTBattleArena is Ownable{
         emit ItemBurned(owner, burnAddress, tokenId);
     }
 
-    function startBattle(uint256 _tokenIdDef, uint256 _tokenIdAtk, uint256 _randomInt) public isListed(_tokenIdDef) isOwner(_tokenIdAtk, msg.sender){
+    function startBattle(uint256 _tokenIdDef, uint256 _tokenIdAtk) public isListed(_tokenIdDef) /* isListed(_tokenIdAtk) */ isOwner(_tokenIdAtk, msg.sender){
         // Start a battle between two NFTs
         IERC721 nft = IERC721(i_nftCollection);
         if (nft.getApproved(_tokenIdAtk) != address(this)) {
             revert NotApprovedForBattle();
         }
+        uint256 _randomInt = random();
         uint256 moddedRng = _randomInt % MAX_CHANCE_VALUE;
         recTerraria = getTerrariaFromModdedRng(moddedRng);
         emit TerrariaChosen(recTerraria);
