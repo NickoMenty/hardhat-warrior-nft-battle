@@ -34,14 +34,14 @@ async function setTokenUris() {
     async function handleTokenUris() {
         const metadataJson = JSON.parse(fs.readFileSync(metadataLocation, "utf8"))
         tokenUris = []
-        let i = 1;  // For loop initializer
-        while (i < 11)  // For loop condition (and the actual loop)
+        let i = 0;  // For loop initializer
+        while (i < 10)  // For loop condition (and the actual loop)
         {   
             const tokenUri = metadataJson[i]
             console.log(tokenUri)
             console.log(`Uploading ${tokenUri.name}...`)
             const metadataUploadResponse = await storeTokenUriMetadata(tokenUri)
-            tokenUris.push(`ipfs://${metadataUploadResponse.IpfsHash}`)
+            tokenUris.push(`https://ipfs.io/ipfs/${metadataUploadResponse.IpfsHash}`)
             i++
         }    
         console.log("Token URIs uploaded! They are:")

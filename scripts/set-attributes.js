@@ -3,7 +3,7 @@ const { moveBlocks } = require("../utils/move-blocks")
 const fs = require("fs")
 const path = require("path")
 
-const TOKEN_ID = 9
+const TOKEN_ID = 0
 const ATTRIBUTES = {
     speed: 10,
     damage: 100,

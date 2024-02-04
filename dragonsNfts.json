@@ -2,7 +2,7 @@
     "0": {
         "name": "DragonSeven",
         "description": "Low",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -25,7 +25,7 @@
     "1": {
         "name": "DragonSix",
         "description": "Tank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -48,7 +48,7 @@
     "2": {
         "name": "DragonEight",
         "description": "DamageTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -72,7 +72,7 @@
     "3": {
         "name": "DragonTwo",
         "description": "DamageTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -95,7 +95,7 @@
     "4": {
         "name": "DragonTen",
         "description": "DamageTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -118,7 +118,7 @@
     "5": {
         "name": "DragonFive",
         "description": "DamageTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -141,7 +141,7 @@
     "6": {
         "name": "DragonThree",
         "description": "DamageTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -164,7 +164,7 @@
     "7": {
         "name": "DragonNine",
         "description": "DamageTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -187,7 +187,7 @@
     "8": {
         "name": "DragonFour",
         "description": "intelleganceTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
@@ -210,7 +210,7 @@
     "9": {
         "name": "DragonOne",
         "description": "speedTank",
-        "image": "ipfs://QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
+        "image": "https://ipfs.io/ipfs/QmVCQCxkwAUzuqv5HqFS8XAGfjdiotWPi131ajRsjtvmrE",
         "attributes": [
             {
                 "trait_type": "speed",
