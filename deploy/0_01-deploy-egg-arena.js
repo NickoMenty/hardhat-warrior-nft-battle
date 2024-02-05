@@ -10,10 +10,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         : VERIFICATION_BLOCK_CONFIRMATIONS
 
     log("----------------------------------------------------")
-    const args = []
-    const basicNft = await deploy("CupheadNft", {
+    const WarriorNft = await deployments.get("EggNft")
+    const WarriorNftAddress = WarriorNft.address
+    const arguments = [WarriorNftAddress]
+    const nftBattleArena = await deploy("NFTBattleArena", {
         from: deployer,
-        args: args,
+        args: arguments,
         log: true,
         waitConfirmations: waitBlockConfirmations,
     })
@@ -21,9 +23,9 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // Verify the deployment
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        await verify(basicNft.address, args)
+        await verify(nftBattleArena.address, arguments)
     }
     log("----------------------------------------------------")
 }
 
-module.exports.tags = ["cupheadnft"]
+module.exports.tags = ["eggarena", "egg"]

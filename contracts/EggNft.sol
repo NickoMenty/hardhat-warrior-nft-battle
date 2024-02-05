@@ -51,15 +51,15 @@ interface IBlast{
     function readGasParams(address contractAddress) external view returns (uint256 etherSeconds, uint256 etherBalance, uint256 lastUpdated, GasMode);
 }
 
-contract CupheadNft is ERC721, Ownable {
+contract EggNft is ERC721, Ownable {
     string public constant TOKEN_URI =
-        "ipfs://QmRngy2dqx3wtYuijxwCZ9MLh8gdyUKUyArAc22ZVA1tJ6";
+        "https://ipfs.io/ipfs/QmYMpncbnpLG9vreGpxZ7eyVU4drRSwbYDrxHS3d36XSdC";
     uint256 private s_tokenCounter;
 
     event DogMinted(uint256 indexed tokenId);
 
     constructor(
-    ) ERC721("CupHead", "CUP") {
+    ) ERC721("BragonEgg", "EGG") {
         IBlast(0x4300000000000000000000000000000000000002).configureClaimableYield();
         IBlast(0x4300000000000000000000000000000000000002).configureClaimableGas();
     }
@@ -72,11 +72,9 @@ contract CupheadNft is ERC721, Ownable {
 
     /* Blast functions */
     function claimAllGas(address recipient) external onlyOwner{
-        // To claim all gas, regardless of tax
 		IBlast(0x4300000000000000000000000000000000000002).claimAllGas(address(this), recipient);
     }
     function claimMaxGas(address recipient) external onlyOwner{
-        // To only claim fully vested gas (i.e. at a 0% tax rate)
 		IBlast(0x4300000000000000000000000000000000000002).claimAllGas(address(this), recipient);
     }
 

@@ -1,25 +1,7 @@
 {
     "0": {
-        "name": "CupHead",
-        "description": "I'm still standing..",
-        "image": "ipfs://QmVcSzj7ZtuNZgTW5cKrufDymvKgSwSgJ63EoPoFCbctjy",
-        "attributes": [
-            {
-                "trait_type": "speed",
-                "value": 99
-            },
-            {
-                "trait_type": "damage",
-                "value": 99
-            },
-            {
-                "trait_type": "intellegance",
-                "value": 99
-            },
-            {
-                "trait_type": "hp",
-                "value": 99
-            }
-        ]
+        "name": "Bragon Egg",
+        "description": "It's not time to hatch...",
+        "image": "ipfs://QmcLEDJtHNw2How2SkmDxWpvKSa5aNDiTkR3PiikCNDaty"
     }
 }

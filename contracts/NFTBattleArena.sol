@@ -130,6 +130,7 @@ contract NFTBattleArena is Ownable{
 
     mapping(uint256 => NFTAttributes) public nftAttributes;
     mapping(uint256 => address) public nftlisted;
+    mapping(uint256 => uint256) public nftWins;
     
 
     modifier isOwner(
@@ -243,7 +244,6 @@ contract NFTBattleArena is Ownable{
         } else if (logicId == 2) {
             isFirstWinner = nftAttributes[tokenId1].intelligence > nftAttributes[tokenId2].intelligence;
         }
-        // ... Add more else if statements for other logicIds as needed
 
         winner = isFirstWinner ? nft.ownerOf(tokenId1) : nft.ownerOf(tokenId2);
         winnerTokenId = isFirstWinner ? tokenId1 : tokenId2;
@@ -252,6 +252,8 @@ contract NFTBattleArena is Ownable{
 
     function executeBattle(uint256 _logicId, uint256 _tokenIdDef, uint256 _tokenIdAtk) private {
         (s_winner, s_winningTokenId, s_loserTokenId) = determineWinner(_tokenIdDef, _tokenIdAtk, _logicId);
+
+        nftWins[s_winningTokenId]++;
 
         NFTAttributes storage loserAttributes = nftAttributes[s_loserTokenId];
         if (loserAttributes.hp > 0) {
@@ -303,6 +305,9 @@ contract NFTBattleArena is Ownable{
     }
     function checkTerraria() public view returns (uint256) {
         return uint256(recTerraria);
+    }
+    function getNFTWins(uint256 _tokenId) public view returns (uint256) {
+    return nftWins[_tokenId];
     }
     
 }
