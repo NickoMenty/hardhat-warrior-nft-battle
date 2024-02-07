@@ -16,6 +16,7 @@ error DragonNft_NotInitialized();
 error DragonNft__NotWhitelisted();
 error DragonNft_NotOpen();
 error DragonNft_AlreadyOpen();
+error DragonNft_AlreadyClosed();
 error DragonNft__AlreadyMintedInWhitelist();
 error DragonNft__AlreadyMintedInPublic();
 
@@ -209,7 +210,7 @@ contract DragonNft is ERC721URIStorage, Ownable {
         emit TokensAirdropped(numRecipients, totalAirdropped);
     }
 
-    /* SetUp to OpenMint */
+    /* SetUp to Start Mint */
     // step 0 - set MaxSupply and set MintFee
     function _initializeContract(uint256 maxSupply, uint256 mintFee) public onlyOwner{
         if (s_initializedFeeAndSupply) {
@@ -250,6 +251,13 @@ contract DragonNft is ERC721URIStorage, Ownable {
             revert DragonNft_AlreadyOpen();
         }
         s_mintState = MintState.PUBLIC;
+    }
+    // IF NEED to pause - step 5 - closed mint for all
+    function closeMint() public onlyOwner {
+        if (s_mintState == MintState.CLOSED) {
+            revert DragonNft_AlreadyClosed();
+        }
+        s_mintState = MintState.CLOSED;
     }
 
     /* Reveal */
