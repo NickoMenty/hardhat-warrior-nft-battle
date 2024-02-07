@@ -11,7 +11,13 @@ error DragonNft__TransferFailed();
 error DragonNft__MaxSupplyReached();
 error DragonNft__InvalidAirdrop();
 error DragonNft__SoldOut();
-// error DragonNft__NotWhitelisted();
+error DragonNft__WrongURIList();
+error DragonNft_NotInitialized();
+error DragonNft__NotWhitelisted();
+error DragonNft_NotOpen();
+error DragonNft_AlreadyOpen();
+error DragonNft__AlreadyMintedInWhitelist();
+error DragonNft__AlreadyMintedInPublic();
 
 
 enum YieldMode {
@@ -62,17 +68,32 @@ interface IBlast{
 
 contract DragonNft is ERC721URIStorage, Ownable {
 
+    enum MintState {
+        CLOSED,
+        WHITELIST,
+        PUBLIC
+    } // uint256 0 = closed, 1 = whitelist, 2 = public
+
     // NFT Variables
     using Strings for uint256;
-    uint256 private immutable i_mintFee;
+    uint256 private s_mintFee;
     uint64 private s_tokenCounter;
     uint256 internal constant MAX_CHANCE_VALUE = 100;
-    uint256 private immutable i_maxSupply;
+    uint256 private s_maxSupply;
     string[] internal s_genTokenUris;
-    bool private s_initialized;
-    bool public revealed = false;
+    bool private s_initializedURIs = false;
+    bool private s_initializedFeeAndSupply = false;
+    bool public s_revealed = false;
     string public constant NOT_REVEALED_URI = "https://ipfs.io/ipfs/QmT7HRAdGoP4ppZwQXAkr2R1vVzbRGuyDgs59EWBWMHQch";
-    // mapping(address => bool) public whitelisted;
+    mapping(address => bool) public whitelisted;
+    bool public s_whitelistMintOpen = false;
+    bool public s_PublicMintOpen = false;
+    mapping(address => uint256) public mintCountWhitelist;
+    uint256 public s_whitelistMintAmount;
+    mapping(address => uint256) public mintCountPublic;
+    uint256 public s_publicMintAmount;
+    bool private s_initializedMintAmount = false;
+    MintState public s_mintState;
     IBlast immutable i_blast;
 
     // Events
@@ -83,24 +104,44 @@ contract DragonNft is ERC721URIStorage, Ownable {
         uint256 mintFee,
         uint256 maxSupply
     ) ERC721 ("Bragon", "BRAG") {
-        i_mintFee = mintFee;
+        s_mintState = MintState.CLOSED;
+        s_mintFee = mintFee;
         s_tokenCounter = 0;
-        i_maxSupply = maxSupply;
+        s_whitelistMintAmount = 1;
+        s_publicMintAmount = 1;
+        s_maxSupply = maxSupply;
         i_blast = IBlast(0x4300000000000000000000000000000000000002);
         IBlast(0x4300000000000000000000000000000000000002).configureClaimableYield();
         IBlast(0x4300000000000000000000000000000000000002).configureClaimableGas();
     }
 
     function mintNft() public payable {
-        if (s_tokenCounter >= i_maxSupply) {
-            revert DragonNft__MaxSupplyReached(); // Check for max supply
+        if (s_mintState == MintState.CLOSED) {
+            revert DragonNft_NotOpen();
         }
-        if (msg.value < i_mintFee) {
+        if (!s_initializedFeeAndSupply){
+            revert DragonNft_NotInitialized();
+        }
+        if (s_tokenCounter >= s_maxSupply) {
+            revert DragonNft__MaxSupplyReached(); 
+        }
+        if (msg.value < s_mintFee) {
             revert DragonNft__NeedMoreETHSent();
         }
-        // if (whitelisted[msg.sender] != true) {
-        //   revert DragonNft__NotWhitelisted();
-        // }
+        if (s_mintState == MintState.WHITELIST) {
+            if (whitelisted[msg.sender] != true) {
+                revert DragonNft__NotWhitelisted();
+            }
+            if (mintCountWhitelist[msg.sender] >= s_whitelistMintAmount) {
+                revert DragonNft__AlreadyMintedInWhitelist();
+            }
+            mintCountWhitelist[msg.sender]++;
+        } else if (s_mintState == MintState.PUBLIC) {
+            if (mintCountPublic[msg.sender] >= s_publicMintAmount) {
+                revert DragonNft__AlreadyMintedInPublic(); 
+            }
+            mintCountPublic[msg.sender]++;
+        }
         
         address genOwner = msg.sender;
         uint256 newItemId = s_tokenCounter;
@@ -109,20 +150,14 @@ contract DragonNft is ERC721URIStorage, Ownable {
         emit NftMinted(newItemId, genOwner);   
     }
 
-    function _initializeContract(string[10] memory genTokenUris) public onlyOwner{
-        if (s_initialized) {
-            revert DragonNft__AlreadyInitialized();
-        }
-        s_genTokenUris = genTokenUris;
-        s_initialized = true;
-    }
+    
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
     if (_exists(tokenId) == false){
         revert DragonNft__RangeOutOfBounds();
     }
     
-    if(revealed == false) {
+    if(s_revealed == false) {
         return NOT_REVEALED_URI;
     }
 
@@ -143,13 +178,16 @@ contract DragonNft is ERC721URIStorage, Ownable {
         address[] calldata recipients
     ) external onlyOwner {
         uint256 numRecipients = recipients.length; 
-        uint256 totalAirdropped; 
+        uint256 totalAirdropped;
+        if (!s_initializedFeeAndSupply){
+            revert DragonNft_NotInitialized();
+        } 
         if (numRecipients != quantity.length) revert DragonNft__InvalidAirdrop(); 
 
         for (uint256 i = 0; i < numRecipients; ) { 
             for (uint256 k = 0; k < quantity[i]; ) { 
                 uint64 updatedAmountMinted = s_tokenCounter + 1;
-                if (updatedAmountMinted > i_maxSupply) {
+                if (updatedAmountMinted > s_maxSupply) {
                     revert DragonNft__SoldOut();
                 }
 
@@ -171,18 +209,68 @@ contract DragonNft is ERC721URIStorage, Ownable {
         emit TokensAirdropped(numRecipients, totalAirdropped);
     }
 
-    /* Reveal and Whitelist */
-    function reveal() public onlyOwner {
-        revealed = true;
+    /* SetUp to OpenMint */
+    // step 0 - set MaxSupply and set MintFee
+    function _initializeContract(uint256 maxSupply, uint256 mintFee) public onlyOwner{
+        if (s_initializedFeeAndSupply) {
+            revert DragonNft__AlreadyInitialized();
+        }
+        s_mintFee = mintFee;
+        s_maxSupply = maxSupply;
+        s_initializedFeeAndSupply = true;
+    }
+    // step 1 - set Mint Amount for WL and Public
+    function _initializeMintAmount(uint256 whitelistAmount, uint256 publicAmount) public onlyOwner{
+        if (s_initializedMintAmount) {
+            revert DragonNft__AlreadyInitialized();
+        }
+        s_whitelistMintAmount = whitelistAmount;
+        s_publicMintAmount = publicAmount;
+        s_initializedMintAmount = true;
     }
 
-    // function whitelistUser(address _user) public onlyOwner {
-    //     whitelisted[_user] = true;
-    // }
+    // Step 2 - add and remove whitelists
+    function whitelistUser(address _user) public onlyOwner {
+        whitelisted[_user] = true;
+    }
     
-    // function removeWhitelistUser(address _user) public onlyOwner {
-    //     whitelisted[_user] = false;
-    // }
+    function removeWhitelistUser(address _user) public onlyOwner {
+        whitelisted[_user] = false;
+    }
+    // step 3 - open mint for whitelists
+    function openWhitelistMint() public onlyOwner {
+        if (s_mintState == MintState.WHITELIST) {
+            revert DragonNft_AlreadyOpen();
+        }
+        s_mintState = MintState.WHITELIST;
+    }
+    // step 4 - open mint for public
+    function openPublicMint() public onlyOwner {
+        if (s_mintState == MintState.PUBLIC) {
+            revert DragonNft_AlreadyOpen();
+        }
+        s_mintState = MintState.PUBLIC;
+    }
+
+    /* Reveal */
+    // Reveal step 1 - pass URIs
+    function _initializeContractURIs(string[] memory genTokenUris) public onlyOwner{
+        if (s_initializedURIs) {
+            revert DragonNft__AlreadyInitialized();
+        }
+        if (genTokenUris.length != s_maxSupply) {
+            revert DragonNft__WrongURIList();
+        }
+        s_genTokenUris = genTokenUris;
+        s_initializedURIs = true;
+    }
+
+    // Reveal step 2 - reveal URIs
+    function reveal() public onlyOwner {
+        s_revealed = true;
+    }
+
+    
 
     /* Blast functions */
     function claimYield(address recipient, uint256 amount) external onlyOwner{
@@ -212,7 +300,7 @@ contract DragonNft is ERC721URIStorage, Ownable {
     /* View and Pure functions */
 
     function getMintFee() public view returns (uint256) {
-        return i_mintFee;
+        return s_mintFee;
     }
 
     function getgenTokenUris(uint256 index) public view returns (string memory) {
@@ -220,11 +308,15 @@ contract DragonNft is ERC721URIStorage, Ownable {
     }
 
     function getInitialized() public view returns (bool) {
-        return s_initialized;
+        return s_initializedURIs;
     }
 
     function getTokenCounter() public view returns (uint256) {
         return s_tokenCounter;
+    }
+
+    function getMintState() public view returns (MintState) {
+        return s_mintState;
     }
 
     function Dragon_BaseURI(uint256 index) internal view virtual returns (string memory) {

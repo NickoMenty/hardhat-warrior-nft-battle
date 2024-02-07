@@ -15,6 +15,7 @@ const SEPOLIA_RPC_URL =
 const POLYGON_MAINNET_RPC_URL =
     process.env.POLYGON_MAINNET_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
+const USER_PRIVATE_KEY = process.env.USER_PRIVATE_KEY
 // optional
 const MNEMONIC = process.env.MNEMONIC
 
@@ -63,6 +64,12 @@ module.exports = {
         blastsepolia: {
             url: BLAST_RPC_URL || "",
             accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+            chainId: 168587773,
+            saveDeployments: true,
+        },
+        blastsepoliaUser: {
+            url: BLAST_RPC_URL || "",
+            accounts: USER_PRIVATE_KEY !== undefined ? [USER_PRIVATE_KEY] : [],
             chainId: 168587773,
             saveDeployments: true,
         },

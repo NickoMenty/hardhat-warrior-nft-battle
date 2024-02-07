@@ -5,14 +5,12 @@ const { storeImages, storeTokenUriMetadata } = require("../utils/uploadToPinata"
 const fs = require("fs")
 const path = require("path")
 
-const metadataLocation = "./Reveal-01-dragonsNfts.json"
+const metadataLocation = "./SetUp-01-whitelistWallets.json"
 let BasicNft, BasicNftAddress, BasicNftInstance
 
-async function setTokenUris() {
-    let tokenUris
-    if (process.env.UPLOAD_TO_PINATA == "true") {
-        tokenUris = await handleTokenUris()
-    }
+async function whitelistUser() {
+    let whitelistedWallets
+    
     const { deployer } = await getNamedAccounts()
     const signer = await ethers.getSigner(deployer)
     BasicNft = await deployments.get("DragonNft")
@@ -22,35 +20,33 @@ async function setTokenUris() {
         BasicNftAddress,
         signer,
     )
-    console.log(`setting TokenURIs...`)
-    const urisTx = await BasicNftInstance._initializeContractURIs(tokenUris)
-    await urisTx.wait(1)
-    console.log(urisTx)
-    if (network.config.chainId == 31337) {
-        await moveBlocks(2, (sleepAmount = 1000))
+    
+    console.log(`setting whitelistedWallets...`)
+    if (process.env.UPLOAD_TO_PINATA == "true") {
+        whitelistedWallets = await handlewhitelistedWallets()
     }
 
-
-    async function handleTokenUris() {
+    async function handlewhitelistedWallets() {
         const metadataJson = JSON.parse(fs.readFileSync(metadataLocation, "utf8"))
-        tokenUris = []
         let i = 0;  // For loop initializer
-        while (i < 10)  // For loop condition (and the actual loop)
+        while (i < 1)  // For loop condition (and the actual loop)
         {   
             const tokenUri = metadataJson[i]
             console.log(tokenUri)
-            console.log(`Uploading ${tokenUri.name}...`)
-            const metadataUploadResponse = await storeTokenUriMetadata(tokenUri)
-            tokenUris.push(`https://ipfs.io/ipfs/${metadataUploadResponse.IpfsHash}`)
+            console.log(`whitelisting ${tokenUri.wallet}...`)
+            const urisTx = await BasicNftInstance._initializeContractURIs(whitelistedWallets)
+            await urisTx.wait(1)
+            console.log(urisTx)
+            if (network.config.chainId == 31337) {
+                await moveBlocks(2, (sleepAmount = 1000))
+            }
             i++
         }    
-        console.log("Token URIs uploaded! They are:")
-        console.log(tokenUris)
-        return tokenUris
+        console.log("wallets are whitelisted! They are:")
         }
 }
 
-setTokenUris()
+whitelistUser()
     .then(() => process.exit(0))
     .catch((error) => {
         console.error(error)
